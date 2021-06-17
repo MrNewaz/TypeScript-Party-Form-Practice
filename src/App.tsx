@@ -1,25 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { Container, Typography } from '@material-ui/core';
+import MyTheme from './MyTheme';
+import List from './components/List';
+import AddToList from './components/AddToList';
+
+export interface Istate {
+  people: {
+    name: string;
+    url: string;
+    notes?: string;
+  }[];
+}
 
 function App() {
+  const [people, setPeople] = useState<Istate['people']>([
+    {
+      name: 'Saif Newaz',
+      url: 'https://saifnewaz.me/assets/img/saif.png',
+      notes: 'Loves art & coding',
+    },
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MyTheme darkmode={false}>
+      <Container maxWidth='lg'>
+        <Typography align='center' variant='h3'>
+          People invited to the party
+        </Typography>
+        <List people={people} />
+        <AddToList people={people} setPeople={setPeople} />
+      </Container>
+    </MyTheme>
   );
 }
 
